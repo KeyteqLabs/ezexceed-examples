@@ -1,26 +1,18 @@
 define(['underscore', 'backbone', 'jquery-safe'], function(_, Backbone, $)
 {
     return Backbone.View.extend({
+        MAX_SPEED: 5,
+        running: true,
         initialize: function()
         {
             _.bindAll(this);
             this.images = {};
         },
 
-        events : {
-            'click button' : function(e) {
-                this.running = !this.running;
-                if (this.running) this.animate();
-            }
-        },
-
         render: function()
         {
             this.trigger('loaded');
-            this.$el
-                .html('<canvas id="clouds"></canvas>')
-                .prepend("<button>Toggle</button>")
-                .append("FUCK YEAH");
+            this.$el.html('<canvas id="clouds"></canvas>');
 
             // Canvas setup
             this.h = this.$el.height();
@@ -32,6 +24,7 @@ define(['underscore', 'backbone', 'jquery-safe'], function(_, Backbone, $)
 
             // Bootstrap cloud image
             this._image = new Image;
+            this._image.onload = this.animate;
             this._image.src = '/extension/ezexceed/design/ezexceed/images/kp/128x128/Cloud.png';
 
             return this;
@@ -70,7 +63,7 @@ define(['underscore', 'backbone', 'jquery-safe'], function(_, Backbone, $)
             if (!_.has(this.images, id)) {
                 this.images[id] = {
                     size: [32, 48, 128][parseInt(Math.random(0,1) * 3, 10)],
-                    movement : 1 + parseInt(Math.random(0, 1) * 10),
+                    movement : 1 + parseInt(Math.random(0, 2) * this.MAX_SPEED),
                     direction : id % 2 ? 1 : -1
                 };
             }
