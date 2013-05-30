@@ -1,5 +1,8 @@
 <?php /**
 
+[AMD]
+NS[ezexceed-examples]=/extension/ezexceed-examples/design/ezexceed/javascript/src
+
 [Toolbar]
 Buttons[]=twitter
 Buttons[]=clouds
@@ -14,5 +17,4 @@ Type=popover
 Name=Clouds
 Icon=Cloud
 Module=ezexceed-examples/clouds
-NS=ezexceed-examples
 Type=stack
